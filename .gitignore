@@ -40,3 +40,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+# Meteor
+api/node_modules
+api/.meteor/local

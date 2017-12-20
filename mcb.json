@@ -1,0 +1,14 @@
+{
+  "runtime": {
+    "DDP_DEFAULT_CONNECTION_URL": "http://10.0.0.127:3000"
+  },
+  "import": [
+    "meteor-base",
+    "accounts-password",
+    "mongo",
+    "reactive-var",
+    "tracker",
+    "ecmascript",
+    "shell-server"
+  ]
+}

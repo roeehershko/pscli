@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "noImplicitAny": false,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,5 +20,18 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "types": [
+    "@types/meteor",
+    "@types/node"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "api/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "api/node_modules",
+    "api"
+  ]
 }
