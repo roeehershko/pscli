@@ -1,0 +1,47 @@
+
+> client@0.0.0 start C:\Users\royh\Projects\ps\client
+> webpack-dev-server --port=4200
+
+Project is running at http://localhost:4200/
+webpack output is served from /
+404s will fallback to /index.html
+################################## FOUND ################################
+meteor/meteor
+meteor
+Hash: bb68a217cc15929a99fe
+Version: webpack 3.8.1
+Time: 8179ms
+                  Asset       Size     Chunks                    Chunk Names
+     main.bundle.js.map    1.23 MB       main  [emitted]         main
+       inline.bundle.js     329 kB     inline  [emitted]  [big]  inline
+    polyfills.bundle.js     200 kB  polyfills  [emitted]         polyfills
+       styles.bundle.js    11.7 kB     styles  [emitted]         styles
+       vendor.bundle.js    5.52 MB     vendor  [emitted]  [big]  vendor
+   inline.bundle.js.map     389 kB     inline  [emitted]         inline
+         main.bundle.js    1.06 MB       main  [emitted]  [big]  main
+polyfills.bundle.js.map     230 kB  polyfills  [emitted]         polyfills
+   styles.bundle.js.map    14.9 kB     styles  [emitted]         styles
+   vendor.bundle.js.map    6.58 MB     vendor  [emitted]         vendor
+            favicon.ico    5.43 kB             [emitted]         
+           ./index.html  609 bytes             [emitted]         
+[./node_modules/@angular/core/esm5/core.js] ./node_modules/@angular/core/esm5/core.js 542 kB {vendor} [built]
+[./node_modules/strip-ansi/index.js] ./node_modules/strip-ansi/index.js 161 bytes {inline} [built]
+[./node_modules/url/url.js] ./node_modules/url/url.js 23.3 kB {inline} [built]
+[./node_modules/webpack-dev-server/client/index.js?http://localhost:4200] (webpack)-dev-server/client?http://localhost:4200 7.95 kB {inline} [built]
+[./node_modules/webpack-dev-server/client/overlay.js] (webpack)-dev-server/client/overlay.js 3.73 kB {inline} [built]
+[./node_modules/webpack-dev-server/client/socket.js] (webpack)-dev-server/client/socket.js 1.05 kB {inline} [built]
+[./node_modules/zone.js/dist/zone.js] ./node_modules/zone.js/dist/zone.js 126 kB {polyfills} [built]
+[./src/app/app.module.ts] ./src/app/app.module.ts 1.27 kB {main} [built]
+   [0] multi (webpack)-dev-server/client?http://localhost:4200 ./src/main.ts 40 bytes {main} [built]
+[./src/environments/environment.ts] ./src/environments/environment.ts 393 bytes {main} [built]
+[./src/main.ts] ./src/main.ts 425 bytes {main} [built]
+[./src/polyfills.ts] ./src/polyfills.ts 2.71 kB {polyfills} [built]
+[./src/styles.scss] ./src/styles.scss 1.24 kB {styles} [built]
+   [1] multi (webpack)-dev-server/client?http://localhost:4200 ./src/polyfills.ts 40 bytes {polyfills} [built]
+   [2] multi (webpack)-dev-server/client?http://localhost:4200 ./src/styles.scss 40 bytes {styles} [built]
+    + 661 hidden modules
+Child html-webpack-plugin for "index.html":
+     1 asset
+    [./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html] ./node_modules/html-webpack-plugin/lib/loader.js!./src/index.html 342 bytes {0} [built]
+webpack: Compiled successfully.
+Terminate batch job (Y/N)? 
