@@ -19,12 +19,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "models/*": [ "../api/server/models/*", "api/server/models/*" ]
+    }
   },
-  "types": [
-    "@types/meteor",
-    "@types/node"
-  ],
   "include": [
     "src/**/*.ts",
     "api/**/*.ts"

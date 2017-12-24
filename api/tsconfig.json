@@ -1,0 +1,14 @@
+{
+  "module": "commonjs",
+  "target": "es5",
+  "moduleResolution": "node",
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true,
+  "sourceMap": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "models/*": [ "server/models/*", "api/server/models/*"]
+    }
+  }
+}

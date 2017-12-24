@@ -5,59 +5,64 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
 const customProperties = require('postcss-custom-properties');
-
-const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin } = require('webpack');
-const { NamedLazyChunksWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
-const { CommonsChunkPlugin } = require('webpack').optimize;
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const { NoEmitOnErrorsPlugin, EnvironmentPlugin, HashedModuleIdsPlugin } = require('webpack');
+const { BaseHrefWebpackPlugin, SuppressExtractedTextChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { CommonsChunkPlugin, ModuleConcatenationPlugin } = require('webpack').optimize;
+const { LicenseWebpackPlugin } = require('license-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
 const realNodeModules = fs.realpathSync(nodeModules);
 const genDirNodeModules = path.join(process.cwd(), 'src', '$$_gendir', 'node_modules');
 const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"];
-const minimizeCss = false;
+const minimizeCss = true;
 const baseHref = "";
 const deployUrl = "";
 const postcssPlugins = function () {
-        // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
-        const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
-        const minimizeOptions = {
-            autoprefixer: false,
-            safe: true,
-            mergeLonghand: false,
-            discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
-        };
-        return [
-            postcssUrl({
-                url: (URL) => {
-                    // Only convert root relative URLs, which CSS-Loader won't process into require().
-                    if (!URL.startsWith('/') || URL.startsWith('//')) {
-                        return URL;
-                    }
-                    if (deployUrl.match(/:\/\//)) {
-                        // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
-                        return `${deployUrl.replace(/\/$/, '')}${URL}`;
-                    }
-                    else if (baseHref.match(/:\/\//)) {
-                        // If baseHref contains a scheme, include it as is.
-                        return baseHref.replace(/\/$/, '') +
-                            `/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
-                    }
-                    else {
-                        // Join together base-href, deploy-url and the original URL.
-                        // Also dedupe multiple slashes into single ones.
-                        return `/${baseHref}/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
-                    }
-                }
-            }),
-            autoprefixer(),
-            customProperties({ preserve: true })
-        ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
-    };
+  // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
+  const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
+  const minimizeOptions = {
+    autoprefixer: false,
+    safe: true,
+    mergeLonghand: false,
+    discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
+  };
+  return [
+    postcssUrl({
+      url: (URL) => {
+        // Only convert root relative URLs, which CSS-Loader won't process into require().
+        if (!URL.startsWith('/') || URL.startsWith('//')) {
+          return URL;
+        }
+        if (deployUrl.match(/:\/\//)) {
+          // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+          return `${deployUrl.replace(/\/$/, '')}${URL}`;
+        }
+        else if (baseHref.match(/:\/\//)) {
+          // If baseHref contains a scheme, include it as is.
+          return baseHref.replace(/\/$/, '') +
+            `/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+        }
+        else {
+          // Join together base-href, deploy-url and the original URL.
+          // Also dedupe multiple slashes into single ones.
+          return `/${baseHref}/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+        }
+      }
+    }),
+    autoprefixer(),
+    customProperties({ preserve: true })
+  ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
+};
+
+
 
 
 module.exports = {
@@ -72,8 +77,6 @@ module.exports = {
     ],
     "symlinks": true,
     "alias": {
-      "models": "C:\\Users\\hersh\\projects\\pscli\\client\\api\\server\\models",
-      "@collections": "C:\\Users\\hersh\\projects\\pscli\\client\\api\\server\\collections",
       "rxjs/util/tryCatch": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\tryCatch.js",
       "rxjs/util/toSubscriber": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\toSubscriber.js",
       "rxjs/util/subscribeToResult": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\subscribeToResult.js",
@@ -558,8 +561,8 @@ module.exports = {
   },
   "output": {
     "path": path.join(process.cwd(), "dist"),
-    "filename": "[name].bundle.js",
-    "chunkFilename": "[id].chunk.js",
+    "filename": "[name].[chunkhash:20].bundle.js",
+    "chunkFilename": "[id].[chunkhash:20].chunk.js",
     "crossOriginLoading": false
   },
   "module": {
@@ -585,6 +588,17 @@ module.exports = {
         }
       },
       {
+        "test": /\.js$/,
+        "use": [
+          {
+            "loader": "@angular-devkit/build-optimizer/webpack-loader",
+            "options": {
+              "sourceMap": false
+            }
+          }
+        ]
+      },
+      {
         "exclude": [
           path.join(process.cwd(), "src\\styles.css")
         ],
@@ -702,117 +716,131 @@ module.exports = {
           path.join(process.cwd(), "src\\styles.css")
         ],
         "test": /\.css$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
+        "loaders": ExtractTextPlugin.extract({
+          "use": [
+            {
+              "loader": "css-loader",
+              "options": {
+                "sourceMap": false,
+                "importLoaders": 1
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "ident": "postcss",
+                "plugins": postcssPlugins
+              }
             }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins
-            }
-          }
-        ]
+          ],
+          "publicPath": ""
+        })
       },
       {
         "include": [
           path.join(process.cwd(), "src\\styles.css")
         ],
         "test": /\.scss$|\.sass$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
+        "loaders": ExtractTextPlugin.extract({
+          "use": [
+            {
+              "loader": "css-loader",
+              "options": {
+                "sourceMap": false,
+                "importLoaders": 1
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "ident": "postcss",
+                "plugins": postcssPlugins
+              }
+            },
+            {
+              "loader": "sass-loader",
+              "options": {
+                "sourceMap": false,
+                "precision": 8,
+                "includePaths": []
+              }
             }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins
-            }
-          },
-          {
-            "loader": "sass-loader",
-            "options": {
-              "sourceMap": false,
-              "precision": 8,
-              "includePaths": []
-            }
-          }
-        ]
+          ],
+          "publicPath": ""
+        })
       },
       {
         "include": [
           path.join(process.cwd(), "src\\styles.css")
         ],
         "test": /\.less$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
+        "loaders": ExtractTextPlugin.extract({
+          "use": [
+            {
+              "loader": "css-loader",
+              "options": {
+                "sourceMap": false,
+                "importLoaders": 1
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "ident": "postcss",
+                "plugins": postcssPlugins
+              }
+            },
+            {
+              "loader": "less-loader",
+              "options": {
+                "sourceMap": false
+              }
             }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins
-            }
-          },
-          {
-            "loader": "less-loader",
-            "options": {
-              "sourceMap": false
-            }
-          }
-        ]
+          ],
+          "publicPath": ""
+        })
       },
       {
         "include": [
           path.join(process.cwd(), "src\\styles.css")
         ],
         "test": /\.styl$/,
-        "use": [
-          "style-loader",
-          {
-            "loader": "css-loader",
-            "options": {
-              "sourceMap": false,
-              "importLoaders": 1
+        "loaders": ExtractTextPlugin.extract({
+          "use": [
+            {
+              "loader": "css-loader",
+              "options": {
+                "sourceMap": false,
+                "importLoaders": 1
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "ident": "postcss",
+                "plugins": postcssPlugins
+              }
+            },
+            {
+              "loader": "stylus-loader",
+              "options": {
+                "sourceMap": false,
+                "paths": []
+              }
             }
-          },
-          {
-            "loader": "postcss-loader",
-            "options": {
-              "ident": "postcss",
-              "plugins": postcssPlugins
-            }
-          },
-          {
-            "loader": "stylus-loader",
-            "options": {
-              "sourceMap": false,
-              "paths": []
-            }
-          }
-        ]
+          ],
+          "publicPath": ""
+        })
       },
       {
-        "test": /\.ts$/,
+        "test": /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
         "use": [
+          {
+            "loader": "@angular-devkit/build-optimizer/webpack-loader",
+            "options": {
+              "sourceMap": false
+            }
+          },
           "@ngtools/webpack"
         ]
       }
@@ -848,7 +876,6 @@ module.exports = {
       "exclude": /(\\|\/)node_modules(\\|\/)/,
       "failOnError": false
     }),
-    new NamedLazyChunksWebpackPlugin(),
     new HtmlWebpackPlugin({
       "template": "./src\\index.html",
       "filename": "./index.html",
@@ -856,7 +883,11 @@ module.exports = {
       "inject": true,
       "compile": true,
       "favicon": false,
-      "minify": false,
+      "minify": {
+        "caseSensitive": true,
+        "collapseWhitespace": true,
+        "keepClosingSlash": true
+      },
       "cache": true,
       "showErrors": true,
       "chunks": "all",
@@ -867,15 +898,15 @@ module.exports = {
         let leftIndex = entryPoints.indexOf(left.names[0]);
         let rightindex = entryPoints.indexOf(right.names[0]);
         if (leftIndex > rightindex) {
-            return 1;
+          return 1;
         }
         else if (leftIndex < rightindex) {
-            return -1;
+          return -1;
         }
         else {
-            return 0;
+          return 0;
         }
-    }
+      }
     }),
     new BaseHrefWebpackPlugin({}),
     new CommonsChunkPlugin({
@@ -886,41 +917,76 @@ module.exports = {
     }),
     new CommonsChunkPlugin({
       "name": [
-        "vendor"
-      ],
-      "minChunks": (module) => {
-                return module.resource
-                    && (module.resource.startsWith(nodeModules)
-                        || module.resource.startsWith(genDirNodeModules)
-                        || module.resource.startsWith(realNodeModules));
-            },
-      "chunks": [
-        "main"
-      ]
-    }),
-    new SourceMapDevToolPlugin({
-      "filename": "[file].map[query]",
-      "moduleFilenameTemplate": "[resource-path]",
-      "fallbackModuleFilenameTemplate": "[resource-path]?[hash]",
-      "sourceRoot": "webpack:///"
-    }),
-    new CommonsChunkPlugin({
-      "name": [
         "main"
       ],
       "minChunks": 2,
       "async": "common"
     }),
-    new NamedModulesPlugin({}),
+    new ExtractTextPlugin({
+      "filename": "[name].[contenthash:20].bundle.css"
+    }),
+    new SuppressExtractedTextChunksWebpackPlugin(),
+    new EnvironmentPlugin({
+      "NODE_ENV": "production"
+    }),
+    new HashedModuleIdsPlugin({
+      "hashFunction": "md5",
+      "hashDigest": "base64",
+      "hashDigestLength": 4
+    }),
+    new ModuleConcatenationPlugin({}),
+    new UglifyJsPlugin({
+      "test": /\.js$/i,
+      "extractComments": false,
+      "sourceMap": false,
+      "cache": false,
+      "parallel": false,
+      "uglifyOptions": {
+        "output": {
+          "ascii_only": true,
+          "comments": false
+        },
+        "ecma": 5,
+        "warnings": false,
+        "ie8": false,
+        "mangle": true,
+        "compress": {
+          "pure_getters": true,
+          "passes": 3
+        }
+      }
+    }),
+    new LicenseWebpackPlugin({
+      "licenseFilenames": [
+        "LICENSE",
+        "LICENSE.md",
+        "LICENSE.txt",
+        "license",
+        "license.md",
+        "license.txt"
+      ],
+      "perChunkOutput": false,
+      "outputTemplate": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\license-webpack-plugin\\output.template.ejs",
+      "outputFilename": "3rdpartylicenses.txt",
+      "suppressErrors": true,
+      "includePackagesWithoutLicense": false,
+      "abortOnUnacceptableLicense": false,
+      "addBanner": false,
+      "bannerTemplate": "/*! 3rd party license information is available at <%- filename %> */",
+      "includedChunks": [],
+      "excludedChunks": [],
+      "additionalPackages": [],
+      "pattern": /^(MIT|ISC|BSD.*)$/
+    }),
+    new PurifyPlugin(),
     new AngularCompilerPlugin({
       "mainPath": "main.ts",
       "platform": 0,
       "hostReplacementPaths": {
-        "environments\\environment.ts": "environments\\environment.ts"
+        "environments\\environment.ts": "environments\\environment.prod.ts"
       },
-      "sourceMap": true,
+      "sourceMap": false,
       "tsConfigPath": "src\\tsconfig.app.json",
-      "skipCodeGeneration": true,
       "compilerOptions": {}
     }),
     new webpack.ProvidePlugin({

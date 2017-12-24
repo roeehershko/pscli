@@ -60,6 +60,8 @@ const postcssPlugins = function () {
     };
 
 
+
+
 module.exports = {
   "resolve": {
     "extensions": [
@@ -72,8 +74,6 @@ module.exports = {
     ],
     "symlinks": true,
     "alias": {
-      "models": "C:\\Users\\hersh\\projects\\pscli\\client\\api\\server\\models",
-      "@collections": "C:\\Users\\hersh\\projects\\pscli\\client\\api\\server\\collections",
       "rxjs/util/tryCatch": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\tryCatch.js",
       "rxjs/util/toSubscriber": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\toSubscriber.js",
       "rxjs/util/subscribeToResult": "C:\\Users\\hersh\\projects\\pscli\\client\\node_modules\\rxjs\\_esm5\\util\\subscribeToResult.js",
