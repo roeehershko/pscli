@@ -9,6 +9,9 @@
     "baseUrl": ".",
     "paths": {
       "models/*": [ "server/models/*", "api/server/models/*"]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   }
 }

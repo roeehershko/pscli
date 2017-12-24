@@ -7,7 +7,7 @@ import {Accounts} from 'meteor/accounts-base';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -15,8 +15,16 @@ export class AppComponent implements OnInit {
   todosIs = 'Todos Is NOT 123';
 
   ngOnInit() {
-    Todos.find({}, { limit: 5 }).subscribe((todos) => {
+    Todos.find({}, ).subscribe((todos) => {
       this.todos = todos;
     });
+
+    Meteor.subscribe('todosList');
+    Meteor.subscribe('userData');
+
+    // Meteor.call('addTodo', {
+    //   title: 'my todo',
+    //   content: 'afwe182378129'
+    // });
   }
 }

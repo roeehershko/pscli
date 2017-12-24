@@ -1,21 +1,19 @@
-<form name="loginForm" class="form-signin" (submit)="loginUser()">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <span>{{ loginError }}</span>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input [(ngModel)]="login.email" type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input [(ngModel)]="login.password" type="password" name="password" class="form-control" placeholder="Password" required>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p>
-        New User? <a routerLink="/auth/register">Register Now</a>
-    </p>
-    <span *ngIf="user">
-        Name: {{ user.profile.name }} <br>
-        Phone: {{ user.profile.phone }}
-    </span>
+<form [formGroup]="loginForm" name="loginForm" novalidate (submit)="loginUser(loginForm.value)">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <span>{{ loginError }}</span>
+  <div class="form-group">
+    <input type="text" formControlName="email" class="form-control" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <input type="text" formControlName="password" class="form-control" placeholder="Password">
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <p>
+    New User? <a routerLink="/auth/register">Register Now</a>
+  </p>
+  <span *ngIf="authService.user">
+    Name: {{ authService.user.profile.name }} <br>
+    Phone: {{ authService.user.profile.phone }} <br>
+    <button type="button" (click)="logoutUser()">Logout</button>
+  </span>
 </form>
