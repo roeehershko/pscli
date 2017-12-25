@@ -21,7 +21,8 @@
       "dom"
     ],
     "paths": {
-      "models/*": [ "../api/server/models/*", "api/server/models/*" ]
+      "models/*": [ "../api/server/models/*", "api/server/models/*" ],
+      "collections/*": [ "../api/server/collections/*", "api/server/collections/*" ]
     }
   },
   "include": [

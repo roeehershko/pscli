@@ -74,7 +74,7 @@ module.exports = {
     "symlinks": true,
     "alias": {
       "models": "C:\\Users\\royh\\Projects\\precli\\api\\server\\models",
-      "@collections": "C:\\Users\\royh\\Projects\\precli\\api\\server\\collections",
+      "collections": "C:\\Users\\royh\\Projects\\precli\\api\\server\\collections",
       "rxjs/util/tryCatch": "C:\\Users\\royh\\Projects\\precli\\node_modules\\rxjs\\_esm5\\util\\tryCatch.js",
       "rxjs/util/toSubscriber": "C:\\Users\\royh\\Projects\\precli\\node_modules\\rxjs\\_esm5\\util\\toSubscriber.js",
       "rxjs/util/subscribeToResult": "C:\\Users\\royh\\Projects\\precli\\node_modules\\rxjs\\_esm5\\util\\subscribeToResult.js",

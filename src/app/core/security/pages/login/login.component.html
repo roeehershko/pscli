@@ -11,7 +11,7 @@
   <p>
     New User? <a routerLink="/auth/register">Register Now</a>
   </p>
-  <span *ngIf="authService.user">
+  <span *ngIf="authService.user && authService.user.profile">
     Name: {{ authService.user.profile.name }} <br>
     Phone: {{ authService.user.profile.phone }} <br>
     <button type="button" (click)="logoutUser()">Logout</button>

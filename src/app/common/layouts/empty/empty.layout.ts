@@ -6,8 +6,9 @@ import { MeteorObservable } from 'meteor-rxjs';
 
 
 @Component({
-  selector: 'app-security',
-  templateUrl: 'security.layout.html'
+  selector: 'app-empty',
+  templateUrl: 'empty.layout.html'
 })
+
 export class SecurityComponent {
 }

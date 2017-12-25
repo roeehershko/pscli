@@ -12,12 +12,9 @@ import {AuthService} from '../../services/auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
   public loginError: String;
   public loginForm: FormGroup;
-  public autorunComputation: Tracker.Computation;
 
   constructor(public authService: AuthService) {}
   ngOnInit() {
-    const self = this;
-
     this.loginForm = new FormGroup({
       email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
       password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(10)]),

@@ -7,7 +7,7 @@ import {CommonModule} from '@angular/common';
 
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
-import {SecurityComponent} from './layout/security.layout';
+import {SecurityComponent} from '../../common/layouts/empty/empty.layout';
 import {
   AuthGuardService
 } from './services/auth-guard.service';
@@ -34,10 +34,14 @@ import { AuthService } from './services/auth.service';
           },
           {
             path: 'register',
-            canActivate: [AuthGuardService],
+            // canActivate: [AuthGuardService],
             component: RegisterComponent
           }
         ]
+      },
+      {
+        path: '**',
+        redirectTo: 'auth/login',
       }
     ])
   ],

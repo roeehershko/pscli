@@ -6,8 +6,7 @@ import {Accounts} from 'meteor/accounts-base';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -20,11 +19,5 @@ export class AppComponent implements OnInit {
     });
 
     Meteor.subscribe('todosList');
-    Meteor.subscribe('userData');
-
-    // Meteor.call('addTodo', {
-    //   title: 'my todo',
-    //   content: 'afwe182378129'
-    // });
   }
 }

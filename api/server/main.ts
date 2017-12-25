@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import {Todos} from './collections/todos';
+import {Todos} from 'collections/todos';
 import {Accounts} from 'meteor/accounts-base';
 
 Meteor.startup(() => {
@@ -20,11 +20,6 @@ Meteor.startup(() => {
         content: 'fkejwehef'
       });
     }
-  });
-
-  Accounts.onLogin(function (data) {
-    console.log('### LOGIN');
-    console.log(data);
   });
 
 });

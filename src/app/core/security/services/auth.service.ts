@@ -6,8 +6,6 @@ export class AuthService {
   public user;
   public zone;
   public isLogged;
-  public loginErr;
-  public cbs = [];
   constructor(zone: NgZone) {
     this.zone = zone;
     this._initAutorun();
