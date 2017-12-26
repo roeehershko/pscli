@@ -1,13 +1,15 @@
-<form [formGroup]="loginForm" name="loginForm" novalidate (submit)="loginUser(loginForm.value)">
-  <h2 class="form-signin-heading">Please sign in</h2>
-  <span>{{ loginError }}</span>
-  <div class="form-group">
-    <input type="text" formControlName="email" class="form-control" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <input type="text" formControlName="password" class="form-control" placeholder="Password">
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<mat-card class="mw-400 mg-auto login-card">
+  <form [formGroup]="loginForm" name="loginForm" novalidate (submit)="loginUser(loginForm.value)">
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input type="text" matInput formControlName="password" placeholder="Password">
+    </mat-form-field>
+
+    <button mat-button type="submit">Sign in</button>
+  </form>
   <p>
     New User? <a routerLink="/auth/register">Register Now</a>
   </p>
@@ -16,4 +18,5 @@
     Phone: {{ authService.user.profile.phone }} <br>
     <button type="button" (click)="logoutUser()">Logout</button>
   </span>
-</form>
+
+</mat-card>

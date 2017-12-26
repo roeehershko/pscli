@@ -13,6 +13,8 @@ import {
 } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 
+import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material';
+
 @NgModule({
   providers: [
     AuthGuardService,
@@ -23,6 +25,10 @@ import { AuthService } from './services/auth.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
     RouterModule.forRoot([
       {
         path: 'auth',

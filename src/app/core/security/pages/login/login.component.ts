@@ -7,7 +7,8 @@ import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public loginError: String;
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
-      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(10)]),
+      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
     });
   }
   loginUser(loginData) {

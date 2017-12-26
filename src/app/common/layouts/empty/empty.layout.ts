@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-
-import { Meteor } from 'meteor/meteor';
-import { MeteorObservable } from 'meteor-rxjs';
+import {Component, Inject, OnInit} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 
 
 @Component({
@@ -10,5 +7,11 @@ import { MeteorObservable } from 'meteor-rxjs';
   templateUrl: 'empty.layout.html'
 })
 
-export class SecurityComponent {
+export class SecurityComponent implements OnInit {
+
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  ngOnInit() {
+    this.document.body.classList.add('layout-empty');
+  }
 }
