@@ -1,6 +1,7 @@
 <form  [formGroup]="userForm" (submit)="save(userForm.value)" novalidate >
     <h2 class="form-signin-heading">Sign Up</h2>
 
+    {{ err }}
     <div class="form-group">
         <input type="text" formControlName="email" class="form-control" placeholder="Email">
     </div>

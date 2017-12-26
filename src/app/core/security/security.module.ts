@@ -34,14 +34,9 @@ import { AuthService } from './services/auth.service';
           },
           {
             path: 'register',
-            // canActivate: [AuthGuardService],
             component: RegisterComponent
           }
         ]
-      },
-      {
-        path: '**',
-        redirectTo: 'auth/login',
       }
     ])
   ],

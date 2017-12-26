@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { SecurityModule } from './core/security/security.module';
 import {RouterModule} from '@angular/router';
+import {AuthGuardService} from './core/security/services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,13 @@ import {RouterModule} from '@angular/router';
     BrowserModule,
     CommonModule,
     SecurityModule,
-    RouterModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: AppComponent,
+        canActivate: [AuthGuardService],
+      }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

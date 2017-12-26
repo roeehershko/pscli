@@ -6,35 +6,38 @@ import {User} from 'models/user';
 
 
 @Component({
-    selector: 'app-register',
-    templateUrl: 'register.component.html',
-    styleUrls: ['register.scss']
+  selector: 'app-register',
+  templateUrl: 'register.component.html',
+  styleUrls: ['register.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-    public userForm: FormGroup;
+  public err: string;
+  public userForm: FormGroup;
 
-    ngOnInit() {
-        this.userForm = new FormGroup({
-            email: new FormControl('', [ <any>Validators.required, <any>Validators.email ]),
-            password: new FormControl('', [ <any>Validators.required, <any>Validators.minLength(10)]),
-            profile: new FormGroup({
-                name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]),
-                phone: new FormControl('', [
-                  <any>Validators.required,
-                  <any>Validators.pattern(new RegExp(/\w+/)),
-                  <any>Validators.minLength(5)
-                ]),
-            })
-        });
-    }
-
-  save(user: User) {
-    Accounts.createUser(user, function (err) {
-      console.log(err);
+  ngOnInit() {
+    this.userForm = new FormGroup({
+      email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
+      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(10)]),
+      profile: new FormGroup({
+        name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]),
+        phone: new FormControl('', [
+          <any>Validators.required,
+          <any>Validators.pattern(new RegExp(/\w+/)),
+          <any>Validators.minLength(5)
+        ]),
+      })
     });
   }
-    ngOnDestroy() {
 
-    }
+  save(user: User) {
+    const self = this;
+    Accounts.createUser(user, function (err) {
+      self.err = err;
+    });
+  }
+
+  ngOnDestroy() {
+
+  }
 }
