@@ -7,13 +7,15 @@ import {CommonModule} from '@angular/common';
 
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
-import {SecurityComponent} from '../../common/layouts/empty/empty.layout';
+import {EmptyLayoutComponent} from '../../common/layouts/empty/empty.layout';
 import {
   AuthGuardService
 } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 
-import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material';
+import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatSidenavModule} from '@angular/material';
+import {SidebarLayoutComponent} from '../../common/layouts/sidebar/sidebar.layout';
+
 
 @NgModule({
   providers: [
@@ -27,12 +29,13 @@ import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSidenavModule,
     MatCardModule,
     MatButtonModule,
     RouterModule.forRoot([
       {
         path: 'auth',
-        component: SecurityComponent,
+        component: EmptyLayoutComponent,
         children: [
           {
             path: 'login',
@@ -47,7 +50,7 @@ import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from
     ])
   ],
   declarations: [
-    SecurityComponent,
+    EmptyLayoutComponent,
     LoginComponent,
     RegisterComponent
   ]

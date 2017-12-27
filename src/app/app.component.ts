@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Todos} from '../../api/server/collections/todos';
 import {Todo} from 'models/todos';
 import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
 
 @Component({
   selector: 'app-root',

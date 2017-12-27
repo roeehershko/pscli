@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
       password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
     });
+
   }
   loginUser(loginData) {
     const self = this;

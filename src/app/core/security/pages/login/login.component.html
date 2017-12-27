@@ -2,13 +2,15 @@
   <form [formGroup]="loginForm" name="loginForm" novalidate (submit)="loginUser(loginForm.value)">
     <mat-form-field class="full-width">
       <input type="text" matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="loginForm.get('email').touched && ! loginForm.get('email').valid">Email is invalid</mat-error>
     </mat-form-field>
 
     <mat-form-field class="full-width">
       <input type="text" matInput formControlName="password" placeholder="Password">
+      <mat-error *ngIf="loginForm.get('password').touched && ! loginForm.get('password').valid">Password is invalid</mat-error>
     </mat-form-field>
 
-    <button mat-button type="submit">Sign in</button>
+    <button mat-button class="mat-warn-bg" type="submit" [disabled]="loginForm.invalid">Sign in</button>
   </form>
   <p>
     New User? <a routerLink="/auth/register">Register Now</a>
@@ -16,7 +18,7 @@
   <span *ngIf="authService.user && authService.user.profile">
     Name: {{ authService.user.profile.name }} <br>
     Phone: {{ authService.user.profile.phone }} <br>
-    <button type="button" (click)="logoutUser()">Logout</button>
+    <button mat-button type="button" (click)="logoutUser()">Logout</button>
   </span>
 
 </mat-card>
