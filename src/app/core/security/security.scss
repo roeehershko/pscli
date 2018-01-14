@@ -1,2 +1,21 @@
 @import "pages/login/login";
 @import "pages/register/register";
+
+.card.auth-card {
+  width: 500px;
+  margin: auto;
+  margin-top: 150px;
+
+  .card-title {
+    background: $blue;
+    color: #fff;
+    padding: 8px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .btn-auth {
+    width: 240px;
+    margin-top: 20px;
+  }
+}

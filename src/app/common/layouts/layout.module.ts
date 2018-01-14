@@ -5,8 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SidebarLayoutComponent} from './sidebar/sidebar.layout';
 import {EmptyLayoutComponent} from './empty/empty.layout';
-import {MatListModule, MatNavList, MatSidenavModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   providers: [
@@ -17,12 +17,11 @@ import {RouterModule} from '@angular/router';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    MatSidenavModule,
-    MatListModule
+    NgbModule.forRoot(),
   ],
   declarations: [
     SidebarLayoutComponent,
-    EmptyLayoutComponent
+    EmptyLayoutComponent,
   ]
 })
 export class LayoutModule {

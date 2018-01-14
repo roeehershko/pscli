@@ -1,0 +1,47 @@
+<div class="card auth-card">
+  <div class="card-title">Register</div>
+  <div class="card-body">
+    <p class="text-danger" *ngIf="registerError">
+      <strong>Ops!</strong> {{ registerError }}
+    </p>
+    <form [formGroup]="userForm" (submit)="save(userForm.value)" novalidate>
+      <div class="form-group">
+        <input type="text" id="email"
+               [ngClass]="{ 'is-invalid': userForm.get('email').touched && userForm.get('email').invalid }"
+               class="form-control" placeholder="Email Address" formControlName="email">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="invalid-feedback">
+          <span *ngIf="userForm.get('email').invalid">
+            Please provide a valid email
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" id="password"
+               [ngClass]="{ 'is-invalid': userForm.get('password').touched && userForm.get('password').invalid }"
+               class="form-control" formControlName="password" placeholder="Password">
+        <div class="invalid-feedback">
+          <span *ngIf="userForm.get('password').invalid">
+            Please provide a valid password
+          </span>
+        </div>
+      </div>
+      <div formGroupName="profile">
+        <div class="form-group">
+          <input type="text" formControlName="name" class="form-control" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <input type="text" formControlName="phone" class="form-control" placeholder="Phone">
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary btn-login">Register</button>
+        <hr>
+        <p>
+          already have account? <a routerLink="/auth/login">login here</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

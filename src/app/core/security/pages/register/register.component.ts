@@ -3,6 +3,7 @@ import {Validators, FormGroup, FormControl} from '@angular/forms';
 
 import {Accounts} from 'meteor/accounts-base';
 import {User} from 'models/user';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public registerError: string;
   public userForm: FormGroup;
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone, private router: Router) {}
   ngOnInit() {
     this.userForm = new FormGroup({
       email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
@@ -36,9 +37,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   save(user: User) {
     const self = this;
+    user.profile.primary_email = user.email;
     Accounts.createUser(user, function (err) {
       self.zone.run(() => {
-        self.registerError = err;
+        if (err) {
+          self.registerError = err.reason;
+        }
+        else {
+          self.registerError = '';
+          self.router.navigate(['/']);
+        }
       });
     });
   }

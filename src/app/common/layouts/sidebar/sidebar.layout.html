@@ -1,6 +1,38 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened="true">Drawer content</mat-drawer>
-  <mat-drawer-content>
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+  <a class="navbar-brand" href="#">PredicTFX</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown active" ngbDropdown>
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+          Analytics
+        </a>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <a class="dropdown-item"><strong>Overview</strong></a>
+          <a class="dropdown-item">Geographical</a>
+          <a class="dropdown-item">Browsers</a>
+          <a class="dropdown-item">Devices Costing</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle>
+          Campaigns
+        </a>
+        <div class="dropdown-menu" ngbDropdownMenu>
+          <a class="dropdown-item">My Campaigns</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">Create New Campaign</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My Apps</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      Welcome, <span *ngIf="authService.user">{{ authService.user.profile.name }}</span>
+    </span>
+  </div>
+</nav>
+
