@@ -27,7 +27,7 @@ export class AuthService {
         });
       } else {
         cb(null);
-        self.user = Meteor.user();
+        self._initAutorun();
       }
     });
   }
@@ -35,6 +35,7 @@ export class AuthService {
   public logout(): void {
     Meteor.logout();
   }
+
   _initAutorun(): void {
     const self = this;
     this.autorunComputation = Tracker.autorun(() => {

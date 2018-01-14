@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {Validators, FormGroup, FormControl} from '@angular/forms';
 
 import {Accounts} from 'meteor/accounts-base';
@@ -12,19 +12,23 @@ import {User} from 'models/user';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 
-  public err: string;
+  public registerError: string;
   public userForm: FormGroup;
 
+  constructor(private zone: NgZone) {}
   ngOnInit() {
     this.userForm = new FormGroup({
       email: new FormControl('', [<any>Validators.required, <any>Validators.email]),
-      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(10)]),
+      password: new FormControl('', [<any>Validators.required, <any>Validators.minLength(6)]),
       profile: new FormGroup({
-        name: new FormControl('', [<any>Validators.required, <any>Validators.minLength(5)]),
+        name: new FormControl('', [
+          <any>Validators.required,
+          <any>Validators.minLength(5),
+        ]),
         phone: new FormControl('', [
           <any>Validators.required,
           <any>Validators.pattern(new RegExp(/\w+/)),
-          <any>Validators.minLength(5)
+          <any>Validators.minLength(6)
         ]),
       })
     });
@@ -33,7 +37,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   save(user: User) {
     const self = this;
     Accounts.createUser(user, function (err) {
-      self.err = err;
+      self.zone.run(() => {
+        self.registerError = err;
+      });
     });
   }
 

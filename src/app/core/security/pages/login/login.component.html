@@ -1,24 +1,45 @@
-<mat-card class="mw-400 mg-auto login-card">
-  <form [formGroup]="loginForm" name="loginForm" novalidate (submit)="loginUser(loginForm.value)">
-    <mat-form-field class="full-width">
-      <input type="text" matInput placeholder="Email" formControlName="email">
-      <mat-error *ngIf="loginForm.get('email').touched && ! loginForm.get('email').valid">Email is invalid</mat-error>
-    </mat-form-field>
+<div class="card">
+  <div class="card-title">Login</div>
+  <div class="card-body">
+    <form [formGroup]="loginForm" (submit)="loginUser(loginForm.value)" novalidate>
+      <div class="form-group">
+        <input type="text" id="email"
+               [ngClass]="{ 'is-invalid': loginForm.get('email').touched && loginForm.get('email').invalid }"
+               class="form-control" placeholder="Email Address" formControlName="email">
+        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="invalid-feedback">
+          <span *ngIf="loginForm.get('email').invalid">
+            Please provide a valid email
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" id="password"
+               [ngClass]="{ 'is-invalid': loginForm.get('password').touched && loginForm.get('password').invalid }"
+               class="form-control" formControlName="password" placeholder="Password">
+        <div class="invalid-feedback">
+          <span *ngIf="loginForm.get('password').invalid">
 
-    <mat-form-field class="full-width">
-      <input type="text" matInput formControlName="password" placeholder="Password">
-      <mat-error *ngIf="loginForm.get('password').touched && ! loginForm.get('password').valid">Password is invalid</mat-error>
-    </mat-form-field>
-
-    <button mat-button class="mat-warn-bg" type="submit" [disabled]="loginForm.invalid">Sign in</button>
-  </form>
-  <p>
-    New User? <a routerLink="/auth/register">Register Now</a>
-  </p>
-  <span *ngIf="authService.user && authService.user.profile">
-    Name: {{ authService.user.profile.name }} <br>
-    Phone: {{ authService.user.profile.phone }} <br>
-    <button mat-button type="button" (click)="logoutUser()">Logout</button>
-  </span>
-
-</mat-card>
+            Please provide a valid password
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1"> Keep me logged</label>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary btn-login">Login</button>
+        <p class="text-danger login-error" *ngIf="loginError">
+          <strong>Oh snap!</strong> {{ loginError }}.
+        </p>
+        <hr>
+        <p>
+          New User? <a routerLink="/auth/register">Register Now</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

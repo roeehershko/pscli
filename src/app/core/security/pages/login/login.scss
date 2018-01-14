@@ -1,4 +1,23 @@
-.login-card {
+.card {
+  width: 500px;
+  margin: auto;
   margin-top: 150px;
-}
 
+  .card-title {
+    background: $blue;
+    color: #fff;
+    padding: 8px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .login-error {
+    line-height: 44px;
+  }
+
+  .btn-login {
+    width: 240px;
+    margin-top: 20px;
+  }
+
+}

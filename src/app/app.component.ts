@@ -10,7 +10,6 @@ import {Meteor} from 'meteor/meteor';
 export class AppComponent implements OnInit {
   title = 'app';
   todos: Todo[];
-  todosIs = 'Todos Is NOT 123';
 
   ngOnInit() {
     Todos.find({}, ).subscribe((todos) => {

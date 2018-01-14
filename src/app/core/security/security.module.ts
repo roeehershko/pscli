@@ -13,8 +13,7 @@ import {
 } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 
-import {MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatSidenavModule} from '@angular/material';
-import {SidebarLayoutComponent} from '../../common/layouts/sidebar/sidebar.layout';
+import {LayoutModule} from '../../common/layouts/layout.module';
 
 
 @NgModule({
@@ -27,11 +26,7 @@ import {SidebarLayoutComponent} from '../../common/layouts/sidebar/sidebar.layou
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatCardModule,
-    MatButtonModule,
+    LayoutModule,
     RouterModule.forRoot([
       {
         path: 'auth',
@@ -50,7 +45,6 @@ import {SidebarLayoutComponent} from '../../common/layouts/sidebar/sidebar.layou
     ])
   ],
   declarations: [
-    EmptyLayoutComponent,
     LoginComponent,
     RegisterComponent
   ]

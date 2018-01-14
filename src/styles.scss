@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+@import "../node_modules/bootstrap/scss/bootstrap";
 @import "scss/base/fonts";
 @import "scss/base/typography";
+@import "scss/base/reset";
 
 @import "scss/layout/empty";
+
+
+// Components
+@import "app/core/security/security";

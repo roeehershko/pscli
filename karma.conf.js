@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     files: [
-      'node_modules/meteor-client.js'
+      'src/meteor-client.js'
     ],
     frameworks: ['jasmine', '@angular/cli'],
     plugins: [
