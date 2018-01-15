@@ -4,8 +4,8 @@ import {Todos} from 'collections/todos';
 Meteor.startup(() => {
   // code to run on server at startup
 
-  Meteor.publish('todosList', function () {
-    return Todos.find({});
+  Meteor.publish('todosData', function () {
+    return Todos.find({ _id: 5 });
   });
 
   Meteor.publish('userData', function () {

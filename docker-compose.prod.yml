@@ -16,5 +16,22 @@ services:
        - 4200:4200
      environment:
        NODE_ENV: production
+     volumes:
+       app_dist:/app/dist/
+  psui-nginx:
+    image: psui-nginx
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    networks:
+      - psui
+    volumes:
+      app_dist:/data/
+    deploy:
+      replicas: 3
 networks:
   psui:
+volumes:
+  app_dist:

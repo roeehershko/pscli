@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Todos} from '../../api/server/collections/todos';
+import {Todos} from 'collections/todos';
 import {Todo} from 'models/todos';
 import {Meteor} from 'meteor/meteor';
 
@@ -12,10 +12,10 @@ export class AppComponent implements OnInit {
   todos: Todo[];
 
   ngOnInit() {
+    Meteor.subscribe('todosData');
+
     Todos.find({}, ).subscribe((todos) => {
       this.todos = todos;
     });
-
-    Meteor.subscribe('todosList');
   }
 }
