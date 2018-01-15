@@ -4,13 +4,13 @@ FROM node:latest
 RUN curl https://install.meteor.com/ | sh
 
 WORKDIR /app
-ADD ./ /app
+ADD ./api /app
 
-ENV MONGO_URL 'mongodb://psui-mongo:27017'
+ENV MONGO_URL 'mongodb://mongo:27017'
 ENV METEOR_ALLOW_SUPERUSER 1
+ENV ROOT_URL 'http://127.0.0.1:3000'
 
 RUN npm install
 RUN meteor update --all-packages
-RUN meteor build
 
-CMD ['node', 'index.js']
+CMD ['meteor', '-p', 'server:3000']

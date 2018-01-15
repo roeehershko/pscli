@@ -1,6 +1,6 @@
 __meteor_runtime_config__ = {
   "meteorEnv": {},
-  "DDP_DEFAULT_CONNECTION_URL": "http://192.168.99.101:3000"
+  "DDP_DEFAULT_CONNECTION_URL": "http://app.perdictedtrx.com:8080"
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -6,6 +6,7 @@ import {SecurityModule} from './core/security/security.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AnalyticModule} from './core/analytic/analytic.module';
 import {RouterModule} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {RouterModule} from '@angular/router';
     CommonModule,
     SecurityModule,
     RouterModule,
-    AnalyticModule
+    AnalyticModule,
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

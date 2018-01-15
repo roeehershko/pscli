@@ -1,28 +1,38 @@
 version: "3"
 services:
-  psui-server:
-     build: ./api
-     command: meteor
+  server:
+     build:
+       context: ../../
+       dockerfile: enviroments/development/server.dockerfile
+     command: meteor -p server:3000
      volumes:
-       - ./api/server:/api/server
+       - ../../api/server:/api/server
      networks:
        - psui
      ports:
        - 3000:3000
      environment:
        NODE_ENV: development
-  psui-app:
-     build: ./
+  nginx:
+    build: ./nginx
+    networks:
+      - psui
+    ports:
+      - 8080:8080
+  app:
+     build:
+       context: ../../
+       dockerfile: enviroments/development/app.dockerfile
      command: npm run start
      volumes:
-       - ./src:/app/src/:rw
+       - ../../src:/app/src/:rw
      networks:
        - psui
      ports:
        - 4200:4200
      environment:
        NODE_ENV: development
-  psui-mongo:
+  mongo:
     image: mongo
     ports:
       - 27017:27017
@@ -31,6 +41,6 @@ services:
     networks:
       - psui
 volumes:
-    mongodbdata:
+  mongodbdata:
 networks:
   psui:

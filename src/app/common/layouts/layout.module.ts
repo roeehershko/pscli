@@ -17,7 +17,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
   ],
   declarations: [
     SidebarLayoutComponent,
