@@ -2,15 +2,15 @@
 FROM nginx
 
 # Copy custom configuration file from the current directory
-COPY enviroments/production/nginx.conf /etc/nginx/nginx.conf
+COPY enviroments/production/resources/nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /app
 
-ADD ./ /app
-
+COPY ./ /app
+COPY enviroments/production/resources/meteor-client.js /app/src/meteor-client.js
 RUN apt-get update
 RUN apt-get install git -y
-RUN apt-get install -y  gnupg2
+RUN apt-get install -y gnupg2
 RUN apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash && \
     apt-get install -y nodejs build-essential

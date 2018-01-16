@@ -27,14 +27,33 @@ export class AuthService {
           cb(err);
         });
       } else {
-        cb(null);
-        self._initAutorun();
+        self.zone.run(() => {
+          cb(null);
+          self._initAutorun();
+        });
       }
+    });
+  }
+
+  public createUser(user, cb) {
+    const self = this;
+
+    Accounts.createUser(user, function (err) {
+      self.zone.run(() => {
+        if (err) {
+          cb(err.reason);
+        }
+        else {
+          self._initAutorun();
+          cb(null);
+        }
+      });
     });
   }
 
   public logout(): void {
     Meteor.logout();
+    this._initAutorun();
   }
 
   _initAutorun(): void {

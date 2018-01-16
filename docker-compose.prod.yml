@@ -1,37 +1,25 @@
-version: "3"
+version: "3.2"
 services:
-  psui-server:
-     image: psui-server
+  server:
+     image: server_prod
+     command: node dist/bundle/main.js
      networks:
-       - psui
+       - frontend
      ports:
        - 3000:3000
      environment:
        NODE_ENV: production
-  psui-app:
-     image: psui-app
+  app:
+     image: app_prod
      networks:
-       - psui
-     ports:
-       - 4200:4200
+       - frontend
      environment:
        NODE_ENV: production
-     volumes:
-       app_dist:/app/dist/
-  psui-nginx:
-    image: psui-nginx
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-    networks:
-      - psui
-    volumes:
-      app_dist:/data/
-    deploy:
-      replicas: 3
+     ports:
+       - target: 80
+         published: 80
+         protocol: tcp
+         mode: host
 networks:
-  psui:
-volumes:
-  app_dist:
+  frontend:
+    external: true
