@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonjs",
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "noImplicitAny": false,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "models/*": [ "../../ddp_api/server/models/*", "api/server/models/*" ],
+      "collections/*": [ "../../ddp_api/server/collections/*", "api/server/collections/*" ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "../ddp_api/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "../ddp_api/node_modules",
+    "../ddp_api"
+  ]
+}

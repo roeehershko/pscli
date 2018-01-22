@@ -1,0 +1,40 @@
+version: "3"
+services:
+  server:
+     build:
+       context: "app/ddp_api"
+       dockerfile: build/Dockerfile.dev
+     command: meteor -p server:3000
+     volumes:
+       - ./app/ddp_api/server:/app/server
+     networks:
+       - psui
+     ports:
+       - 3000:3000
+     environment:
+       NODE_ENV: development
+  app:
+     build:
+       context: "app"
+       dockerfile: client/build/Dockerfile.dev
+     command: npm run start
+     volumes:
+       - ./app/client/src/src:/app/src/:rw
+     networks:
+       - psui
+     ports:
+       - 4200:4200
+     environment:
+       NODE_ENV: development
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodbdata:/data/db
+    networks:
+      - psui
+volumes:
+  mongodbdata:
+networks:
+  psui:

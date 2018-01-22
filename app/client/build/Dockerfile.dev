@@ -1,0 +1,12 @@
+# Set the base image to Ubuntu
+FROM node:latest
+
+WORKDIR /app
+
+COPY ./client/src /app
+COPY ./ddp_api/src /app/api
+
+RUN rm -rf node_modules
+RUN yarn install
+
+CMD ['npm', 'run', 'start']
