@@ -8,7 +8,7 @@ COPY ./api /app
 
 EXPOSE 3000
 
-ENV MONGO_URL 'mongodb://159.89.108.85:27017'
+ENV MONGO_URL 'mongodb://159.89.108.85:27017/pstracker'
 ENV ROOT_URL 'http://localhost'
 ENV PORT 3000
 ENV METEOR_ALLOW_SUPERUSER 1
