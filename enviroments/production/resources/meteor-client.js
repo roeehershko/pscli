@@ -1,6 +1,6 @@
 __meteor_runtime_config__ = {
   "meteorEnv": {},
-  "DDP_DEFAULT_CONNECTION_URL": "http://192.168.99.102:3000"
+  "DDP_DEFAULT_CONNECTION_URL": "http://207.154.241.193:3000"
 };
 
 //////////////////////////////////////////////////////////////////////////
